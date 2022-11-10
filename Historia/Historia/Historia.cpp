@@ -1,9 +1,9 @@
 // Historia.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
 //
-#define _CRT_SECURE_NO_WARNINGS
-#include <cstdio>
+
 #include <iostream>
 #include <stdio.h>
+#include <fstream>
 
 
 #define C(x) ( x > 'Z' ? x-'a' : x-'A' )
@@ -14,36 +14,41 @@ int main()
 {
     unsigned int matrix[26][26], w;
     char u, v;
-    //Inicializamos la Matrix en 0
+    int opc;
     memset(matrix, 0, sizeof(matrix));
+    ifstream archivo;
 
-  
-    //freopen Redirecciona la entrada STD desde un archivo
-    if (freopen("C:/Users/ivanc/source/repos/Historia/Matriz.txt", "r", stdin)) {
-        while (cin >> u >> v >> w) {
-            matrix[C(u)][C(v)] = w;
-        }
-
+    archivo.open("C:/Users/ivanc/source/repos/Historia/Matriz.txt");
+    if (!archivo.is_open()) {
+        cout << "Error del archivo";
+        return 1;
     }
     else {
-        cout << "Fallo";
-        exit(1);
+        while (archivo >> u >> v >> w) {
+            matrix[C(u)][C(v)] = w;
+        }
     }
-    
- 
-       
-    // En este punto tenemos cargada la matriz de adyacencia en "matrix"...
-   
-   
+
     cout << "Bienvenido a la historia grafica de Bryan Ivan Noe Ramirez Vivanco\n";
     system("pause");
     system("cls");
     cout << "Durante todoe el programa se le iran presentando entre dos opciones a elegir para recorrer la historia.\nCada una de tus decisiones influira en el desarrollo de la misma.ELIGE CON CUIDADO\n";
     system("pause");
     system("cls");
-    cout << "Hay un camino de D hacia A y pesa: \n" << matrix[C('d')][C('a')];
-  
-
+    cout << "Has terminado la Preparatoria con tu titulo de TECNOLOGO\nQue quieres hacer ahora?:\n1. Ir a la Universidad      2. Comenzar a trabajar\nElija opcion:\n";
+    cin >> opc;
+    if (opc == 1) {
+        if (matrix[C('b')][C('c')]) {
+            printf("Hay un camino de B hacia C y pesa: %u.\n", matrix[C('b')][C('c')]);
+        }
+        else {
+            printf("No existe un camino de B hacia C.\n");
+        }
+    }
+    else {
+        cout << "Hay un camino de A hacia C y pesa: \n" << matrix[C('a')][C('c')];
+    }
+    return 1;
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
